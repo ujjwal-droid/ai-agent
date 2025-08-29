@@ -98,7 +98,7 @@ def YouTubeSearch(Topic):
 def PlayYouTube(Topic):#uses pywhatkit's playonyt function to play a youtube video based on the given topic
     playonyt(Topic)#plays the first video result on youtube
     return True#indicates successful execution
-
+PlayYouTube("https://www.youtube.com/watch?v=c7JhqqByKg4&pp=0gcJCbIJAYcqIYzv")
 #for opening an app or a relevant website
 def OpenApp(app, sess=requests.session()):
     try:
