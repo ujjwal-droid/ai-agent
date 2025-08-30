@@ -87,7 +87,7 @@ def TextToSpeech(Text,func=lambda r=None: True):
     ]
 
     #if the text is longer than 4 lines and 250 words
-    if len(Data) > 4 and len(Text) >= 250:
+    if len(Data) > 4 and len(Text) >= 100000:
         TTS(" ".join(Text.split(".")[0:2])+". "+ random.choice(responses) , func)
     
     #otherwise play the whole text

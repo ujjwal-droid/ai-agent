@@ -11,6 +11,7 @@ import subprocess# for running system commands
 import keyboard# for simulating keyboard events
 import asyncio# for asynchronous programming
 import os# for interacting with the operating system
+import json #for importing the json file
 
 # Load environment variables
 env_vars = dotenv_values(".env")
@@ -39,8 +40,25 @@ SystemChatBot = [{"role": "system", "content": f"Hello, I am {os.environ['Userna
 
 # function to perform a Google search
 def GoogleSearch(Topic):
-    search(Topic)#uses pywhatkit's search function to perform a google search
-    return True#indicates successful execution
+
+    # Load banned words from JSON file in the data folder
+    with open(r"data\banned_words.json", "r", encoding="utf-8") as f:
+        banned = json.load(f)
+    banned_keywords = banned.get("keywords", [])#checks the keywords from the json file
+    banned_domains = banned.get("domains", [])#checks the domain name from the json file
+
+    topic_lower = Topic.lower()
+    # Check for banned keywords
+    if any(banned in topic_lower for banned in banned_keywords):
+        print("Search blocked: Sorry I won't be able to show the requested content.")#denies the access to explicit content
+        return False
+    # Check for banned domains/websites
+    if any(domain in topic_lower for domain in banned_domains):
+        print("Search blocked: Sorry I won't be able to show the requested content.")#denies the access to explicit content
+        return False
+
+    search(Topic)  # uses pywhatkit's search function to perform a google search
+    return True  # indicates successful execution
 
 # function to generate content using AI
 def content(Topic):
@@ -98,7 +116,7 @@ def YouTubeSearch(Topic):
 def PlayYouTube(Topic):#uses pywhatkit's playonyt function to play a youtube video based on the given topic
     playonyt(Topic)#plays the first video result on youtube
     return True#indicates successful execution
-PlayYouTube("https://www.youtube.com/watch?v=c7JhqqByKg4&pp=0gcJCbIJAYcqIYzv")
+
 #for opening an app or a relevant website
 def OpenApp(app, sess=requests.session()):
     try:
