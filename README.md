@@ -1,7 +1,7 @@
 # ai-agent
 
 ISSUES:
-1. explicit search display on google search under automation.py under the function GoogleSearch()
+
 2. links do not work with PlayYouTube() under automation.py
 3. language model shifting problem(basic hindi is not working, voice commands not working on terminal)
 4. image generation is still under work, only 1 or 2 stable outputs
